@@ -1,0 +1,16 @@
+name: Download Firefox Tar
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull and Save Docker Image
+        run: |
+          docker pull --platform linux/amd64 jlesage/firefox:latest
+          docker save -o firefox.tar jlesage/firefox:latest
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-amd64
+          path: firefox.tar
